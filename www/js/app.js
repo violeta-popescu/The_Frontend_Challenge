@@ -20,12 +20,27 @@ var app = angular.module('challenge', ['ionic'])
 app.controller('AppController',['$scope','$http',function($scope,$http) { 
 
     $scope.filter="";
+
     
     $http.get("../tiles.json").success(function(data){
         
         $scope.tiles=data;
 
     });
+    
+    $scope.filterContent=function(subtype,title, description){
+        
+        
+        if(subtype.contains($scope.filter)||title.contains($scope.filter)||description.contains($scope.filter)){
+                       
+            return true;
+            
+        }
+           
+      
+    }
+    
+   
     
     /*$scope.items=[];
   for(var i=0; i<10;i++){
