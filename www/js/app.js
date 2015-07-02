@@ -15,12 +15,13 @@ var app = angular.module('challenge', ['ionic'])
     }
   });
     
-})    
+}) 
+
+app.factory('services',services);
     
-app.controller('AppController',['$scope','$http',function($scope,$http) { 
+app.controller('AppController',['$scope','$http','services',function($scope,$http,services) { 
 
     $scope.filter="";
-
     
     $http.get("../tiles.json").success(function(data){
         
@@ -28,29 +29,49 @@ app.controller('AppController',['$scope','$http',function($scope,$http) {
 
     });
     
-    $scope.filterContent=function(subtype,title, description){
         
+    $scope.addTile=function(){
+
         
-        if(subtype.contains($scope.filter)||title.contains($scope.filter)||description.contains($scope.filter)){
-                       
-            return true;
+        if($scope.title!=""&&$scope.tag!=""){
             
+            $scope.tiles=services.addTile($scope.title,$scope.tag,$scope.tiles);
+                
         }
-           
+                    
+            $scope.title="";
+            $scope.tag="";
+            $scope.filter="";
+        
+    } 
+
       
-    }
-    
-   
-    
-    /*$scope.items=[];
-  for(var i=0; i<10;i++){
-    $scope.items[i] = {
-      'color': ('#'+Math.floor(Math.random()*16777215).toString(16))
-    };
-  }*/
+        /*$scope.colors=[];
+        for(var i=0; i<10;i++){
+            $scope.colors[i] = {
+                        'color': ('#'+Math.floor(Math.random()*16777215).toString(16))
+                };*/
+  //}
     
        
 }])
+
+    
+function services(){
+        
+    
+        return {
+            
+            addTile:function(title, tag, tile){
+                
+            tile.push({"title":title,"tags":[{"name":tag}]});    
+            return tile;                
+                
+            }
+            
+             };
+
+    }    
 
 })();    
                                  
