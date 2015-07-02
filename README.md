@@ -1,6 +1,6 @@
 # The_Frontend_Challenge
 
-Installez Cordova/Ionic :
+Installez Cordova/Ionic (pour plus d'infos : http://ionicframework.com/getting-started/):
 
     $npm install –g cordova ionic
 
